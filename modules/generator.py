@@ -3,7 +3,7 @@ from torch import nn
 import torch.nn.functional as F
 import sys
 from modules.util import ResBlock2d, SameBlock2d, UpBlock2d, DownBlock2d, AntiAliasInterpolation2d
-from modules.util import FeatureExtractor, SAR, SPADEDecoder
+from modules.util import FeatureExtractor, SAR ##SPADEDecoder
 
 
 class OptimGenerator(nn.Module):
@@ -87,7 +87,7 @@ class OptimGenerator(nn.Module):
         C_Matrix = torch.matmul(driving_feat.permute(0, 2, 1), source_feat)
         K = torch.exp(-(1.0 - C_Matrix) / self.temperature)
 
-        #### Sinkhorn algorithm iter
+        #### Sinkhorn algorithm iter, adap from github.com.
         power = 1
         a = (torch.ones((K.shape[0], K.shape[1], 1), device=driving_feat.device, dtype=driving_feat.dtype)/K.shape[1])
         prob1 = (torch.ones((K.shape[0], K.shape[1], 1), device=driving_feat.device, dtype=driving_feat.dtype)/K.shape[1])

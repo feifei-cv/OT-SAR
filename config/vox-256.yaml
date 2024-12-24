@@ -13,7 +13,6 @@ dataset_params:
       saturation: 0.1
       hue: 0.1
 
-
 model_params:
   common_params:
     num_kp: 20
