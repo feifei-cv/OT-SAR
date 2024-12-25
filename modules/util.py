@@ -386,7 +386,7 @@ class SAR(nn.Module):
             nn.Conv2d(feature_dim, 1, kernel_size=(7, 7), padding=(3, 3)),
             nn.Sigmoid(),
         )
-        self.ratio = 0.001
+        self.ratio = 1
 
     def forward(self, f_warp, f_source):
         identity_feat = self.mapping(f_source) ##mapping source feature to identity feature
@@ -396,8 +396,8 @@ class SAR(nn.Module):
         scale_feat = self.fc_warp(f_warp)
         weight = self.weight(torch.cat((identity_feat, scale_feat), dim=1))
 
-        ####
-        loss_con = self.ratio*torch.abs(scale_feat - identity_feat).mean()
+        ####detach
+        loss_con = self.ratio*torch.abs(scale_feat.detach() - identity_feat).mean()
         x = weight * x + f_warp
         return x, loss_con
 

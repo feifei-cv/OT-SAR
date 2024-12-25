@@ -14,8 +14,7 @@ class OptimGenerator(nn.Module):
         self.temperature = 0.05
 
         ##### 1、Feature Adapter Module
-        if self.scale_factor != 1:
-            self.down = AntiAliasInterpolation2d(num_channels, scale=0.25)
+        self.down = AntiAliasInterpolation2d(num_channels, scale=0.25)
         self.predictor_source = FeatureExtractor(block_expansion=block_expansion, in_features=num_channels + num_kp,
                                                  out_features=256, max_features=max_features, num_blocks=5)
         self.predictor_driving = FeatureExtractor(block_expansion=block_expansion, in_features=num_kp, out_features=256,

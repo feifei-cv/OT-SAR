@@ -248,19 +248,19 @@ class GeneratorFullModel(torch.nn.Module):
 
         # if self.loss_weights['Gromov_value'] != 0:
         #     value = generated['loss_con'][0]
-        #     loss_values['loss_con'] = self.loss_weights['Gromov_value'] * value
+        loss_values['loss_con'] = generated['loss_con'][0]
 
-
-        print('perceptual', loss_values['perceptual'],
-              'gan', loss_values['gen_gan'],
-              'feature_matching', loss_values['feature_matching'],
-              'equivariance_value', loss_values['equivariance_value']) #
 
         # print('perceptual', loss_values['perceptual'],
         #       'gan', loss_values['gen_gan'],
         #       'feature_matching', loss_values['feature_matching'],
-        #       'equivariance_value', loss_values['equivariance_value'],
-        #       'loss_con', loss_values['loss_con']) #
+        #       'equivariance_value', loss_values['equivariance_value']) #
+
+        print('perceptual', loss_values['perceptual'],
+              'gan', loss_values['gen_gan'],
+              'feature_matching', loss_values['feature_matching'],
+              'equivariance_value', loss_values['equivariance_value'],
+              'loss_con', loss_values['loss_con']) #
 
         return loss_values, generated
 
